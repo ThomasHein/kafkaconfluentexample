@@ -6,9 +6,11 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.*;
+import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
@@ -20,22 +22,13 @@ import java.util.Locale;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
+import static com.example.demokafka.KafkaKonfiguration.bootstrapservers;
+import static com.example.demokafka.KafkaKonfiguration.getMaterializedViewProperties;
+
 public class MaterializedViewPerson2 {
 
     public KafkaStreams getTable() throws InterruptedException {
-        final Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-wordcount");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.99.100:39092");
-        props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
-        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-
-        // setting offset reset to earliest so that we can re-run the demo code with the same pre-loaded data
-        // Note: To re-run the demo, you need to use the offset reset tool:
-        // https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Streams+Application+Reset+Tool
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-
         final StreamsBuilder builder = new StreamsBuilder();
-
         KTable<String, Person> stream =  builder.stream("streams-person-input",Consumed.with(Serdes.String(),PersonSerde.getPersonSerde()))
                 .filter((k,v)-> v.toString().toLowerCase().contains("mueller0"))
                 .groupByKey()
@@ -47,13 +40,36 @@ public class MaterializedViewPerson2 {
                         Materialized.<String, Person, KeyValueStore<Bytes, byte[]>>as("personsStore"));
 
         //stream.toStream().to("streams-wordcount-output");
-        KafkaStreams streams = new KafkaStreams(builder.build(),props);
+        KafkaStreams streams = new KafkaStreams(builder.build(),getMaterializedViewProperties());
         streams.start();
         return streams;
-
-
-
         //return streams.store(persons.queryableStoreName(), QueryableStoreTypes.keyValueStore());
+    }
 
+    public static void readPersonFromTable() throws InterruptedException {
+        KafkaStreams streams = new MaterializedViewPerson2().getTable();
+
+        System.out.println("Started");
+        Thread.sleep(5000);
+        ReadOnlyKeyValueStore<String, Person> keyValueStore =
+                streams.store("personsStore", QueryableStoreTypes.keyValueStore());
+
+        int counter = 0;
+        while (true) {
+
+            System.out.println("****\n*****\n");
+            KeyValueIterator<String, Person> iterator = keyValueStore.all();
+            counter = 0;
+            while (iterator.hasNext()) {
+                KeyValue<String, Person> k = iterator.next();
+                Person p = k.value;
+                System.out.println("count for hello:" + p.getFirstname());
+                counter++;
+            }
+
+            System.out.println("count: " + counter);
+            Thread.sleep(100000);
+
+        }
     }
 }

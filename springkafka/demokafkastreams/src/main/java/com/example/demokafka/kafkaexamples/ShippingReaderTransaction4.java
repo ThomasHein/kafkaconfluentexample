@@ -12,40 +12,35 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.Properties;
 
+import static com.example.demokafka.KafkaKonfiguration.bootstrapservers;
+import static com.example.demokafka.KafkaKonfiguration.getTransactionConsumber;
+
 public class ShippingReaderTransaction4 {
 
-    public void ShippingReaderFromTransaction(){
-
-        final Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "transaction-shipping");
-        props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, "192.168.99.100:39092");
-        props.put("group.id", "test");
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "1000");
-        props.put("session.timeout.ms", "30000");
-        props.put("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
-        props.put("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer");
-
-        KafkaConsumer<String,String> consumer = new KafkaConsumer<String, String>(props);
-
+    public static void shippingReaderFromTransaction(){
+        KafkaConsumer<String,String> consumer = getTransactionConsumber();
         consumer.subscribe(Collections.singletonList("shippingtransactiontopic"));
 
         while (true){
-            try{
-                Thread.sleep(4000);
-            }catch (Exception ex){
-
-            }
-            ConsumerRecords<String,String> records = consumer.poll(1000);
+            waitALittleBit();
             System.out.println("Polled Information");
-            Iterator it = records.iterator();
-            while(it.hasNext()){
-                System.out.println(it.next().toString());
-            }
+            PollFromTransactionTopicAndShowMessages(consumer);
         }
+    }
 
+    private static void PollFromTransactionTopicAndShowMessages(KafkaConsumer<String, String> consumer) {
+        ConsumerRecords<String,String> records = consumer.poll(1000);
+        Iterator it = records.iterator();
+        while(it.hasNext()){
+            System.out.println(it.next().toString());
+        }
+    }
 
+    private static void waitALittleBit() {
+        try{
+            Thread.sleep(4000);
+        }catch (Exception ex){
 
-
+        }
     }
 }
