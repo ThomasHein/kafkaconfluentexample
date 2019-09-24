@@ -1,32 +1,31 @@
-package com.example.demokafka;
+package com.example.demokafkaproducer.kafkaexamples;
 
-import com.example.demokafka.model.Order;
-import com.example.demokafka.model.Person;
+import com.example.demokafkaproducer.model.Person;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
-import static com.example.demokafka.KafkaEndlessWriter.createOrderProducer;
+import static com.example.demokafkaproducer.KafkaEndlessWriterProcessesAsync.createPPersonroducer;
 
 
-public class EndlessOrderWriter {
+public class EndlessPersonWriter2 {
 
-    private final static String TOPIC = "streams-order-input";
+    private final static String TOPIC = "streams-person-input";
 
-    public void endlessOrderWriter(){
-        final Producer<String, String> producer = createOrderProducer();
+    public void endlessPersonWriter(){
+        final Producer<String, String> producer = createPPersonroducer();
         long time = System.currentTimeMillis();
         Long sendMessageCount = 0L;
 
         try {
             while(true)  {
                 sendMessageCount++;
-                Order o = new Order();
+                Person p = new Person();
                 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
                 final ProducerRecord<String, String> record =
-                        new ProducerRecord<>(TOPIC, o.getId().toString(),ow.writeValueAsString(o));
+                        new ProducerRecord<>(TOPIC, p.getGuid().toString(),ow.writeValueAsString(p));
 
                 RecordMetadata metadata = producer.send(record).get();
                 System.out.println(metadata.topic()+" "+metadata.offset());

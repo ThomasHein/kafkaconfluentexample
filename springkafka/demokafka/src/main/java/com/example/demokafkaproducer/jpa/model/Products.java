@@ -1,4 +1,4 @@
-package com.example.demokafka.jpa.model;
+package com.example.demokafkaproducer.jpa.model;
 
 
 import javax.persistence.*;

@@ -1,6 +1,8 @@
-package com.example.demokafka;
+package com.example.demokafkaproducer;
 
-import com.example.demokafka.jpa.model.ProductsRepository;
+import com.example.demokafkaproducer.jpa.ProductsRepository;
+import com.example.demokafkaproducer.kafkaexamples.EndlessDbWriter3;
+import com.example.demokafkaproducer.kafkaexamples.OrderShippingTransaction4;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -15,14 +17,15 @@ public class DemokafkaApplication {
 
 	}
 
-	public EndlessDbWriter endlessDbWriter(ProductsRepository repository){
-	    return new EndlessDbWriter(repository);
+	public EndlessDbWriter3 endlessDbWriter(ProductsRepository repository){
+	    return new EndlessDbWriter3(repository);
     }
 
     @Bean
     public CommandLineRunner demo(ProductsRepository repository) {
         return (args) -> {
-            new KafkaEndlessWriter(endlessDbWriter(repository)).startEndlessWriter();
+            new KafkaEndlessWriterProcessesAsync(endlessDbWriter(repository)).startEndlessWriter();
+
         };
     }
 

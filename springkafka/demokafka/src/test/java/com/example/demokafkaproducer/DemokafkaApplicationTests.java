@@ -1,4 +1,4 @@
-package com.example.demokafka;
+package com.example.demokafkaproducer;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

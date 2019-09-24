@@ -1,7 +1,7 @@
 package com.example.demokafka.model;
 
-import com.example.demokafka.JsonPOJODeserializer;
-import com.example.demokafka.JsonPOJOSerializer;
+import com.example.demokafka.serializer.JsonPOJODeserializer;
+import com.example.demokafka.serializer.JsonPOJOSerializer;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;

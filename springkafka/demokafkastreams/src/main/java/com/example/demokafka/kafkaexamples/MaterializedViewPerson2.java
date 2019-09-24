@@ -1,4 +1,4 @@
-package com.example.demokafka;
+package com.example.demokafka.kafkaexamples;
 
 import com.example.demokafka.model.Person;
 import com.example.demokafka.model.PersonSerde;
@@ -13,14 +13,14 @@ import org.apache.kafka.streams.state.KeyValueStore;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
-import scala.reflect.io.File;
+
 
 import java.util.Arrays;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
 
-public class KafkaStream {
+public class MaterializedViewPerson2 {
 
     public KafkaStreams getTable() throws InterruptedException {
         final Properties props = new Properties();

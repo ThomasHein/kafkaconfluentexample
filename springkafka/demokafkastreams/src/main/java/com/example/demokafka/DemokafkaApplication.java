@@ -1,6 +1,8 @@
-package com.example.demokafka.model;
+package com.example.demokafka;
 
-import com.example.demokafka.KafkaStream;
+import com.example.demokafka.kafkaexamples.MaterializedViewPerson2;
+import com.example.demokafka.kafkaexamples.ShippingReaderTransaction4;
+import com.example.demokafka.model.Person;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.state.KeyValueIterator;
@@ -17,7 +19,15 @@ public class DemokafkaApplication {
 
 
 		System.out.println("Starting application");
-		KafkaStreams streams = new KafkaStream().getTable();
+		new ShippingReaderTransaction4().ShippingReaderFromTransaction();
+		//PeronTableReading();
+		return;
+
+
+	}
+
+	private static void PeronTableReading() throws InterruptedException {
+		KafkaStreams streams = new MaterializedViewPerson2().getTable();
 
 		System.out.println("Started");
 		Thread.sleep(5000);
@@ -41,12 +51,6 @@ public class DemokafkaApplication {
 			Thread.sleep(100000);
 
 		}
-
-
-
-
-
-
 	}
 
 }

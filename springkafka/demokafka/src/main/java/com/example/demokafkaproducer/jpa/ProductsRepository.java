@@ -1,5 +1,6 @@
-package com.example.demokafka.jpa.model;
+package com.example.demokafkaproducer.jpa;
 
+import com.example.demokafkaproducer.jpa.model.Products;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

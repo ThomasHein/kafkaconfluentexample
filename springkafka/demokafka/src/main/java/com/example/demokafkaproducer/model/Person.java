@@ -1,4 +1,4 @@
-package com.example.demokafka.model;
+package com.example.demokafkaproducer.model;
 
 
 public class Person {

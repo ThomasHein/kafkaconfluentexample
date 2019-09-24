@@ -1,4 +1,4 @@
-package com.example.demokafka;
+package com.example.demokafka.serializer;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
