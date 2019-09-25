@@ -3,7 +3,8 @@ package com.example.demokafkaproducer.kafkaexamples;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-import static com.example.demokafkaproducer.KafkaEndlessWriterProcessesAsync.createShippingProducer;
+import static com.example.demokafkaproducer.KafkaConfigurations.createShippingProducer;
+
 
 public class OrderShippingTransaction4 {
 

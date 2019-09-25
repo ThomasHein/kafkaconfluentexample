@@ -26,7 +26,7 @@ public class KafkaEndlessWriterProcessesAsync {
             new EndlessOrderWriter1().endlessOrderWriter();
         };
 
-        Runnable task = () -> {
+        Runnable taskPersonWriter = () -> {
             new EndlessPersonWriter2().endlessPersonWriter();
         };
 
@@ -40,14 +40,14 @@ public class KafkaEndlessWriterProcessesAsync {
 
 
 
-        Thread th = new Thread(task);
+        Thread th = new Thread(taskPersonWriter);
         Thread th2 = new Thread(taskOrder);
         Thread th3 = new Thread(taskDb);
         Thread th4 = new Thread(taskTransaction);
         th.start();
-        th2.start();
-        th3.start();
-        th4.start();
+        //th2.start();
+        //th3.start();
+        //th4.start();
 
     }
 

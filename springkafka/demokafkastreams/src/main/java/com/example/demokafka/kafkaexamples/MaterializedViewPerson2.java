@@ -29,7 +29,7 @@ public class MaterializedViewPerson2 {
 
     public KafkaStreams getTable() throws InterruptedException {
         final StreamsBuilder builder = new StreamsBuilder();
-        KTable<String, Person> stream =  builder.stream("streams-person-input",Consumed.with(Serdes.String(),PersonSerde.getPersonSerde()))
+        builder.stream("streams-person-input",Consumed.with(Serdes.String(),PersonSerde.getPersonSerde()))
                 .filter((k,v)-> v.toString().toLowerCase().contains("mueller0"))
                 .groupByKey()
                 .reduce(
@@ -37,13 +37,11 @@ public class MaterializedViewPerson2 {
                            return newest;
                         }
                         ,
-                        Materialized.<String, Person, KeyValueStore<Bytes, byte[]>>as("personsStore"));
-
-        //stream.toStream().to("streams-wordcount-output");
+                        Materialized.<String, Person, KeyValueStore<Bytes, byte[]>>as("personsStore")
+                );
         KafkaStreams streams = new KafkaStreams(builder.build(),getMaterializedViewProperties());
         streams.start();
         return streams;
-        //return streams.store(persons.queryableStoreName(), QueryableStoreTypes.keyValueStore());
     }
 
     public static void readPersonFromTable() throws InterruptedException {

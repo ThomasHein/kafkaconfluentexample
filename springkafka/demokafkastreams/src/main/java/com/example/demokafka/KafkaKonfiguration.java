@@ -10,6 +10,8 @@ import java.util.Properties;
 public class KafkaKonfiguration {
 
     public static String bootstrapservers = "192.168.99.100:39092";
+    public static String streamorderinput = "streams-order-input";
+    public static String personinput = "streams-person-input";
 
     public static Properties getMaterializedViewProperties(){
          Properties props = new Properties();
@@ -22,6 +24,26 @@ public class KafkaKonfiguration {
         // Note: To re-run the demo, you need to use the offset reset tool:
         // https://cwiki.apache.org/confluence/display/KAFKA/Kafka+Streams+Application+Reset+Tool
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        return props;
+    }
+
+    public static Properties getOrderProperties(){
+        Properties props = new Properties();
+        props.put("bootstrap.servers", bootstrapservers);
+        props.put("application.id", "OrderReaderExampleStream1");
+        props.put("group.id", "OrderReader");
+        props.put("key.deserializer",
+                "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("value.deserializer",
+                "org.apache.kafka.common.serialization.StringDeserializer");
+        props.put("enable.auto.commit","true");
+        return props;
+    }
+
+    public static Properties getPersonProperties(){
+        Properties props = new Properties();
+        props.put("bootstrap.servers", bootstrapservers);
+        props.put("application.id", "PersonReaderExampleStream1");
         return props;
     }
 
