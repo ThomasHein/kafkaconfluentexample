@@ -1,0 +1,15 @@
+{
+  "namespace": "com.example.demokafkaproducer.model",
+  "type": "record",
+  "name": "OrderNotWorkingAvro",
+  "fields": [
+    {
+      "name": "id",
+      "type": "int"
+    },
+    {
+      "name": "name",
+      "type": "string"
+    }
+  ]
+}

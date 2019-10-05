@@ -1,0 +1,23 @@
+{
+  "namespace": "com.example.demokafkaproducer.model",
+  "type": "record",
+  "name": "OrderAvro",
+  "fields": [
+    {
+      "name": "id",
+      "type": "int"
+    },
+    {
+      "name": "amount",
+      "type": "double"
+    },
+    {
+      "name": "personId",
+      "type": "int"
+    },
+    {
+      "name": "car",
+      "type": "string"
+    }
+  ]
+}

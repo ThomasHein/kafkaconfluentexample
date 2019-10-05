@@ -1,9 +1,6 @@
 package com.example.demokafkaproducer;
 
-import com.example.demokafkaproducer.kafkaexamples.EndlessDbWriter3;
-import com.example.demokafkaproducer.kafkaexamples.EndlessOrderWriter1;
-import com.example.demokafkaproducer.kafkaexamples.EndlessPersonWriter2;
-import com.example.demokafkaproducer.kafkaexamples.OrderShippingTransaction4;
+import com.example.demokafkaproducer.kafkaexamples.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,16 +35,22 @@ public class KafkaEndlessWriterProcessesAsync {
             new OrderShippingTransaction4().sendOrderShippingTransaction();
         };
 
+        Runnable taskTransactionAvroOrder = () -> {
+            new OrderAvroWriter5().endlessOrderWriter();
+        };
+
 
 
         Thread th = new Thread(taskPersonWriter);
         Thread th2 = new Thread(taskOrder);
         Thread th3 = new Thread(taskDb);
         Thread th4 = new Thread(taskTransaction);
-        th.start();
+        Thread th5AvroWriter = new Thread(taskTransactionAvroOrder);
+       // th.start();
         //th2.start();
         //th3.start();
         //th4.start();
+        th5AvroWriter.start();
 
     }
 
