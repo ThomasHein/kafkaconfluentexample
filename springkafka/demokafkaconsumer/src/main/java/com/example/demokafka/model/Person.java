@@ -1,5 +1,8 @@
 package com.example.demokafka.model;
 
+/**
+ * For Avro see
+ */
 
 public class Person {
 
