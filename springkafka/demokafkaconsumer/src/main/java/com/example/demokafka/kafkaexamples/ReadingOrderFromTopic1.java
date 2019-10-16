@@ -1,6 +1,5 @@
 package com.example.demokafka.kafkaexamples;
 
-import com.example.demokafka.model.Person;
 import com.example.demokafka.model.PersonSerde;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -9,11 +8,10 @@ import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.StreamsBuilder;
 import org.apache.kafka.streams.kstream.Consumed;
-import org.apache.kafka.streams.kstream.KStream;
 
 import java.util.Collections;
 
-import static com.example.demokafka.KafkaKonfiguration.*;
+import static com.example.demokafka.KafkaConfiguration.*;
 
 
 /**

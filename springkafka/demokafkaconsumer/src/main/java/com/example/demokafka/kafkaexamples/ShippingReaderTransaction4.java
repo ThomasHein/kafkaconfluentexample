@@ -1,19 +1,12 @@
 package com.example.demokafka.kafkaexamples;
 
-import org.apache.kafka.clients.consumer.Consumer;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.StreamsConfig;
 
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.Properties;
 
-import static com.example.demokafka.KafkaKonfiguration.bootstrapservers;
-import static com.example.demokafka.KafkaKonfiguration.getTransactionConsumber;
+import static com.example.demokafka.KafkaConfiguration.getTransactionConsumber;
 
 public class ShippingReaderTransaction4 {
 

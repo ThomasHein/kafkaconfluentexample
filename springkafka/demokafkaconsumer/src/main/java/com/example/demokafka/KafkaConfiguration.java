@@ -1,5 +1,7 @@
 package com.example.demokafka;
 
+import com.example.demokafka.model.Person;
+import com.example.demokafka.model.PersonSerde;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.common.serialization.Serdes;
@@ -7,7 +9,7 @@ import org.apache.kafka.streams.StreamsConfig;
 
 import java.util.Properties;
 
-public class KafkaKonfiguration {
+public class KafkaConfiguration {
 
     public static String bootstrapservers = "192.168.99.100:39092";
     public static String streamorderinput = "streams-order-input";
@@ -44,6 +46,15 @@ public class KafkaKonfiguration {
         Properties props = new Properties();
         props.put("bootstrap.servers", bootstrapservers);
         props.put("application.id", "PersonReaderExampleStream1");
+        return props;
+    }
+
+    public static Properties getPersonJoinProperties(){
+        Properties props = new Properties();
+        props.put("bootstrap.servers", bootstrapservers);
+        props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
+        //props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serde< Person >.getClass().getName());
+        props.put("application.id", "PersonReaderJoin");
         return props;
     }
 

@@ -2,15 +2,14 @@ package com.example.demokafka.kafkaexamples;
 
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.JoinWindows;
 import org.apache.kafka.streams.kstream.Joined;
 import org.apache.kafka.streams.kstream.KStream;
 
 import java.time.Duration;
 
-import static com.example.demokafka.KafkaKonfiguration.personinput;
-import static com.example.demokafka.KafkaKonfiguration.streamorderinput;
+import static com.example.demokafka.KafkaConfiguration.personinput;
+import static com.example.demokafka.KafkaConfiguration.streamorderinput;
 
 public class ReadingOrderPersonShippingAsJoin3 {
     public void joinSeveralInputs(){

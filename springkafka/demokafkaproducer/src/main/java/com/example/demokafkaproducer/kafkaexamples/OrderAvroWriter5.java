@@ -11,7 +11,8 @@ import static com.example.demokafkaproducer.KafkaConfigurations.createNotWorking
 
 /**
  * See Tutorial at
- * https://dzone.com/articles/kafka-avro-serialization-and-the-schema-registry
+ * for producer https://dzone.com/articles/kafka-avro-serialization-and-the-schema-registry
+ * for streams https://aseigneurin.github.io/2018/08/06/kafka-tutorial-7-kafka-streams-serdes-and-avro.html
  * Gradle Plugin Generation http://cloudurable.com/blog/avro/index.html
  *
  * Please the sChema tab in confluent gui

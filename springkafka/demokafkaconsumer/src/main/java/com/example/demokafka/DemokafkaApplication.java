@@ -1,5 +1,6 @@
 package com.example.demokafka;
 
+import com.example.demokafka.kafkaexamples.JoinOfTopics5;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -13,9 +14,10 @@ public class DemokafkaApplication {
         System.out.println("Starting application");
 
         //readOrderPerPollOldWay1();
-        readPersonPerStream();
+        //readPersonPerStream();
         //readPersonFromTable();
         //shippingReaderFromTransaction();
+        JoinOfTopics5.readPersonAndOrder();
 
     }
 }

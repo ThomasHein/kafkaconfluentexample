@@ -2,28 +2,19 @@ package com.example.demokafka.kafkaexamples;
 
 import com.example.demokafka.model.Person;
 import com.example.demokafka.model.PersonSerde;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.StreamsConfig;
 import org.apache.kafka.streams.kstream.*;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
-import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 
-import java.util.Arrays;
-import java.util.Locale;
-import java.util.Properties;
-import java.util.concurrent.CountDownLatch;
-
-import static com.example.demokafka.KafkaKonfiguration.bootstrapservers;
-import static com.example.demokafka.KafkaKonfiguration.getMaterializedViewProperties;
+import static com.example.demokafka.KafkaConfiguration.getMaterializedViewProperties;
 
 public class MaterializedViewPerson2 {
 
