@@ -14,8 +14,10 @@ import java.util.Properties;
 
 public class KafkaConfigurations {
 
+    public final static String orderAvroTopic = "order-avro-topic";
+
     public final static String BOOTSTRAP_SERVERS =
-            "192.168.99.100:39092";
+            "localhost:39092";
 
     public static Producer<String, String> createPPersonroducer() {
         Properties props = new Properties();
@@ -75,7 +77,7 @@ public class KafkaConfigurations {
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         props.put(AbstractKafkaAvroSerDeConfig.AUTO_REGISTER_SCHEMAS, false);
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
-        props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://192.168.99.100:8081");
+        props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
         return new KafkaProducer<>(props);
     }
 
@@ -90,7 +92,7 @@ public class KafkaConfigurations {
         props.put(AbstractKafkaAvroSerDeConfig.AUTO_REGISTER_SCHEMAS, false);
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, IntegerSerializer.class.getName());
         props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, KafkaAvroSerializer.class);
-        props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://192.168.99.100:8081");
+        props.put(AbstractKafkaAvroSerDeConfig.SCHEMA_REGISTRY_URL_CONFIG, "http://localhost:8081");
         return new KafkaProducer<>(props);
     }
 }

@@ -46,11 +46,11 @@ public class KafkaEndlessWriterProcessesAsync {
         Thread th3 = new Thread(taskDb);
         Thread th4 = new Thread(taskTransaction);
         Thread th5AvroWriter = new Thread(taskTransactionAvroOrder);
-        th.start();
-        th2.start();
-        //th3.start();
+       th.start();
+         th2.start();
+       // th3.start();
         //th4.start();
-        //th5AvroWriter.start();
+       // th5AvroWriter.start();
 
     }
 

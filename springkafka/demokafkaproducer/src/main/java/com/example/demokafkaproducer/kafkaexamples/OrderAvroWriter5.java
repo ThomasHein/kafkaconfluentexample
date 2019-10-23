@@ -7,7 +7,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 
 import static com.example.demokafkaproducer.KafkaConfigurations.createAvroProductProducer;
 import static com.example.demokafkaproducer.KafkaConfigurations.createNotWorkingProductProducer;
-
+import static com.example.demokafkaproducer.KafkaConfigurations.orderAvroTopic;
 
 /**
  * See Tutorial at
@@ -33,7 +33,7 @@ import static com.example.demokafkaproducer.KafkaConfigurations.createNotWorking
  */
 public class OrderAvroWriter5 {
 
-    private final static String TOPIC = "order-avro-topic";
+
 
     public void endlessOrderWriter(){
         workingExample();
@@ -55,7 +55,7 @@ public class OrderAvroWriter5 {
                         .setPersonId(new Double(Math.random()*10).intValue())
                         .build();
 
-                final ProducerRecord<Integer, OrderAvro> record = new ProducerRecord<Integer, OrderAvro>(TOPIC, o.getId(), o);
+                final ProducerRecord<Integer, OrderAvro> record = new ProducerRecord<Integer, OrderAvro>(orderAvroTopic, o.getId(), o);
                 producer.send(record);
                 System.out.println("New Avro Message "+record.value().toString());
                 Thread.sleep(4000);
@@ -88,7 +88,7 @@ public class OrderAvroWriter5 {
                         .setName("Test")
                         .build();
 
-                final ProducerRecord<Integer, OrderNotWorkingAvro> record = new ProducerRecord<Integer, OrderNotWorkingAvro>(TOPIC, o.getId(), o);
+                final ProducerRecord<Integer, OrderNotWorkingAvro> record = new ProducerRecord<Integer, OrderNotWorkingAvro>(orderAvroTopic, o.getId(), o);
                 producer.send(record);
                 System.out.println("New Avro Message "+record.value().toString());
                 Thread.sleep(4000);

@@ -4,20 +4,25 @@ import com.example.demokafka.model.Person;
 import com.example.demokafka.model.PersonSerde;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.streams.StreamsConfig;
 
 import java.util.Properties;
 
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
+import io.confluent.kafka.serializers.KafkaAvroSerializer;
+
 public class KafkaConfiguration {
 
-    public static String bootstrapservers = "192.168.99.100:39092";
+    public static String bootstrapservers = "localhost:39092";
     public static String streamorderinput = "streams-order-input";
     public static String personinput = "streams-person-input";
+    public static String orderAvroTopic = "order-avro-topic";
 
     public static Properties getMaterializedViewProperties(){
          Properties props = new Properties();
-        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-wordcount");
+        props.put(StreamsConfig.APPLICATION_ID_CONFIG, "streams-persons-materialized-view");
         props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapservers);
         props.put(StreamsConfig.CACHE_MAX_BYTES_BUFFERING_CONFIG, 0);
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
@@ -53,8 +58,7 @@ public class KafkaConfiguration {
         Properties props = new Properties();
         props.put("bootstrap.servers", bootstrapservers);
         props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass().getName());
-        //props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serde< Person >.getClass().getName());
-        props.put("application.id", "PersonReaderJoin");
+        props.put("application.id", "PersonReaderJoin3");
         return props;
     }
 
