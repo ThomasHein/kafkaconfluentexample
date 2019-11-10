@@ -1,35 +1,32 @@
 package com.example.demokafka.kafkaexamples;
 
-import com.example.demokafka.model.Person;
-import com.example.demokafka.model.PersonSerde;
 import org.apache.kafka.common.serialization.Serdes;
 import org.apache.kafka.common.utils.Bytes;
 import org.apache.kafka.streams.KafkaStreams;
 import org.apache.kafka.streams.KeyValue;
 import org.apache.kafka.streams.StreamsBuilder;
-import org.apache.kafka.streams.kstream.*;
+import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.Materialized;
 import org.apache.kafka.streams.state.KeyValueIterator;
 import org.apache.kafka.streams.state.KeyValueStore;
 import org.apache.kafka.streams.state.QueryableStoreTypes;
 import org.apache.kafka.streams.state.ReadOnlyKeyValueStore;
 
+import com.example.demokafka.model.Person;
+import com.example.demokafka.model.PersonSerde;
 
 import static com.example.demokafka.KafkaConfiguration.getMaterializedViewProperties;
+import static com.example.demokafka.KafkaConfiguration.personInputTopic;
+import static com.example.demokafka.KafkaConfiguration.personStoreName;
 
 public class MaterializedViewPerson2 {
 
     public KafkaStreams getTable() throws InterruptedException {
         final StreamsBuilder builder = new StreamsBuilder();
-        builder.stream("streams-person-input",Consumed.with(Serdes.String(),PersonSerde.getPersonSerde()))
-                .groupByKey()
-                .reduce(
-                        (current, newest)->{
-                           return newest;
-                        }
-                        ,
-                        Materialized.<String, Person, KeyValueStore<Bytes, byte[]>>as("personsStoreMaterialized")
-                );
-        KafkaStreams streams = new KafkaStreams(builder.build(),getMaterializedViewProperties());
+        builder.stream(personInputTopic, Consumed.with(Serdes.String(), PersonSerde.getPersonSerde())).groupByKey().reduce((current, newest) -> {
+            return newest;
+        }, Materialized.<String, Person, KeyValueStore<Bytes, byte[]>>as(personStoreName));
+        KafkaStreams streams = new KafkaStreams(builder.build(), getMaterializedViewProperties());
         streams.start();
         return streams;
     }
@@ -39,8 +36,7 @@ public class MaterializedViewPerson2 {
 
         System.out.println("Started");
         Thread.sleep(5000);
-        ReadOnlyKeyValueStore<String, Person> keyValueStore =
-                streams.store("personsStoreMaterialized", QueryableStoreTypes.keyValueStore());
+        ReadOnlyKeyValueStore<String, Person> keyValueStore = streams.store(personStoreName, QueryableStoreTypes.keyValueStore());
 
         int counter = 0;
         while (true) {
@@ -51,7 +47,7 @@ public class MaterializedViewPerson2 {
             while (iterator.hasNext()) {
                 KeyValue<String, Person> k = iterator.next();
                 Person p = k.value;
-                System.out.println("count for hello:" + p.getFirstname()+p.getAlter());
+                System.out.println("count for hello:" + p.getFirstname() + p.getAlter());
                 counter++;
             }
 

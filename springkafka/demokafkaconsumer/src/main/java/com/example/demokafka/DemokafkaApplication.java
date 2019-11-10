@@ -1,11 +1,9 @@
 package com.example.demokafka;
 
-import com.example.demokafka.kafkaexamples.JoinOfTopics5;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import static com.example.demokafka.kafkaexamples.MaterializedViewPerson2.readPersonFromTable;
-import static com.example.demokafka.kafkaexamples.ReadingOrderFromTopic1.readPersonPerStream;
+import com.example.demokafka.kafkaexamples.JoinOfTopics5;
 
 @SpringBootApplication
 public class DemokafkaApplication {

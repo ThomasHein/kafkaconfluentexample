@@ -6,10 +6,10 @@ package com.example.demokafka.model;
 
 public class Person {
 
-    private Integer guid = new Double(Math.random()*10).intValue();
-    private String firstname = "Klaus"+guid;
-    private String lastname = "Mueller"+guid;
-    private  Integer alter = new Double(Math.random()*100).intValue();
+    private Integer guid = new Double(Math.random() * 10).intValue();
+    private String firstname = "Klaus" + guid;
+    private String lastname = "Mueller" + guid;
+    private Integer alter = new Double(Math.random() * 100).intValue();
 
     public Integer getAlter() {
         return alter;

@@ -13,8 +13,8 @@ import com.example.demokafka.serializer.JsonPOJOSerializer;
 
 public class OrderSerde {
 
-    public static Serializer<Order> getOrderSerializer(){
-        Serializer<Order>  serializer= new JsonPOJOSerializer<>();
+    public static Serializer<Order> getOrderSerializer() {
+        Serializer<Order> serializer = new JsonPOJOSerializer<>();
         Map<String, Object> serdeProps = new HashMap<>();
         serdeProps.put("JsonPOJOClass", Order.class);
         serializer.configure(serdeProps, false);
@@ -22,17 +22,16 @@ public class OrderSerde {
 
     }
 
-    public static Deserializer<Order> getOrderDeserializer(){
-        final Deserializer<Order> deserializer= new JsonPOJODeserializer<>();
+    public static Deserializer<Order> getOrderDeserializer() {
+        final Deserializer<Order> deserializer = new JsonPOJODeserializer<>();
         Map<String, Object> serdeProps = new HashMap<>();
         serdeProps.put("JsonPOJOClass", Order.class);
         deserializer.configure(serdeProps, false);
         return deserializer;
     }
 
-    public static Serde<Order> getOrderSerde(){
-        return Serdes.serdeFrom(getOrderSerializer(),getOrderDeserializer());
+    public static Serde<Order> getOrderSerde() {
+        return Serdes.serdeFrom(getOrderSerializer(), getOrderDeserializer());
     }
-
 
 }
