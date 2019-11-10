@@ -1,23 +1,21 @@
 package com.example.demokafkaproducer;
 
 import com.example.demokafkaproducer.kafkaexamples.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class KafkaEndlessWriterProcessesAsync {
 
-
     private EndlessDbWriter3 endlessDbWriter3;
 
     @Autowired
-    public KafkaEndlessWriterProcessesAsync(EndlessDbWriter3 endlessDbWriter3){
+    public KafkaEndlessWriterProcessesAsync(EndlessDbWriter3 endlessDbWriter3) {
         this.endlessDbWriter3 = endlessDbWriter3;
     }
 
-
-
-    public void startEndlessWriter(){
+    public void startEndlessWriter() {
 
         Runnable taskOrder = () -> {
             new EndlessOrderWriter1().endlessOrderWriter();
@@ -39,20 +37,17 @@ public class KafkaEndlessWriterProcessesAsync {
             new OrderAvroWriter5().endlessOrderWriter();
         };
 
-
-
-        Thread th = new Thread(taskPersonWriter);
-        Thread th2 = new Thread(taskOrder);
-        Thread th3 = new Thread(taskDb);
-        Thread th4 = new Thread(taskTransaction);
+        Thread thPersonWriter = new Thread(taskPersonWriter);
+        Thread thOrderWriter = new Thread(taskOrder);
+        Thread thDatabaseWriter = new Thread(taskDb);
+        Thread thTransactionWriter = new Thread(taskTransaction);
         Thread th5AvroWriter = new Thread(taskTransactionAvroOrder);
-       th.start();
-         th2.start();
-       // th3.start();
-        //th4.start();
-       // th5AvroWriter.start();
+        thPersonWriter.start();
+        // thOrderWriter.start();
+        // thDatabaseWriter.start();
+        // thTransactionWriter.start();
+        // th5AvroWriter.start();
 
     }
-
 
 }

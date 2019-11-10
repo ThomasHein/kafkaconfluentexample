@@ -2,8 +2,8 @@ package com.example.demokafkaproducer.model;
 
 public class OrderSuccess {
 
-    private Integer personId = new Double(Math.random()*10).intValue();
-    private Integer orderId = new Double(Math.random()*1000).intValue();
+    private Integer personId = new Double(Math.random() * 10).intValue();
+    private Integer orderId = new Double(Math.random() * 1000).intValue();
     private String status = "Success";
 
     public Integer getOrderId() {

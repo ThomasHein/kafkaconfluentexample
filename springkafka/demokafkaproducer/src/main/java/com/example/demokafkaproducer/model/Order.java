@@ -2,9 +2,9 @@ package com.example.demokafkaproducer.model;
 
 public class Order {
 
-    private Integer id = new Double(Math.random()*1000).intValue();
-    private double amount = Math.random()*1000;
-    private Integer personId = new Double(Math.random()*10).intValue();
+    private Integer id = new Double(Math.random() * 1000).intValue();
+    private double amount = Math.random() * 1000;
+    private Integer personId = new Double(Math.random() * 10).intValue();
     private String car = "Trabbi";
 
     public Integer getId() {
