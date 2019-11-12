@@ -20,6 +20,7 @@ public class KafkaConfigurations {
     public final static String orderInputTopic = "streams-order-input";
     public static final String orderTransactionTopic = "ordertransactiontopic";
     public static final String shippingTransactionTopic = "shippingtransactiontopic";
+    public final static String personInputTopic = "streams-person-input";
 
     public final static String BOOTSTRAP_SERVERS = "localhost:39092";
     public final static String schemaRegistryUrl = "http://localhost:8081";

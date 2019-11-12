@@ -8,12 +8,11 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.clients.producer.RecordMetadata;
 
 import static com.example.demokafkaproducer.KafkaConfigurations.createPPersonroducer;
-
-
+import static com.example.demokafkaproducer.KafkaConfigurations.personInputTopic;
 
 public class EndlessPersonWriter2 {
 
-    private final static String TOPIC = "streams-person-input";
+
 
     public void endlessPersonWriter(){
         final Producer<String, String> producer = createPPersonroducer();
@@ -26,7 +25,7 @@ public class EndlessPersonWriter2 {
                 Person p = new Person();
                 ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
                 final ProducerRecord<String, String> record =
-                        new ProducerRecord<>(TOPIC, p.getGuid().toString(),ow.writeValueAsString(p));
+                        new ProducerRecord<>(personInputTopic, p.getGuid().toString(),ow.writeValueAsString(p));
 
                 RecordMetadata metadata = producer.send(record).get();
                 System.out.println(metadata.topic()+" "+metadata.offset());
